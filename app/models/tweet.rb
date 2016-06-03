@@ -1,4 +1,4 @@
 class Tweet < ActiveRecord::Base
   belongs_to :user
-  validates :user, :body, presence: true
+  validates :user, :message, presence: true
 end

@@ -1,15 +1,32 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_filter :get_user
+  respond_to :html
+
+  def get_user
+    if params[:user_id]
+    @user = User.find(params[:user_id])
+    end
+  end
 
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    if @user == nil
+      @tweets = Tweet.all
+      p "Waldo was here"
+    else
+      @tweets = @user.tweets
+      p "else tweets = user.tweets"
+      p params
+      p @user
+    end
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+    @tweet = @user.tweets.find(params[:id])
   end
 
   # GET /tweets/new
@@ -24,15 +41,13 @@ class TweetsController < ApplicationController
   # POST /tweets
   # POST /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
+    @tweet = @user.tweets.new(tweet_params)
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
-        format.json { render :show, status: :created, location: @tweet }
+        format.html { redirect_to [@user, @tweet], notice: 'Tweet was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +57,9 @@ class TweetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tweet }
+        format.html { redirect_to [@user, @tweet], notice: 'Tweet was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
   end

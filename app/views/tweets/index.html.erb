@@ -25,4 +25,6 @@
 </table>
 
 <br>
-<p> testing</p>
+<% if @user %>
+  <%= link_to 'New Tweet', new_user_tweet_path(tweet.user) %>
+<% end %>
