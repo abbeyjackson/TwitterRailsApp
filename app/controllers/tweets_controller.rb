@@ -1,6 +1,7 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
   before_filter :get_user
+
   respond_to :html
 
   def get_user
@@ -14,12 +15,8 @@ class TweetsController < ApplicationController
   def index
     if @user == nil
       @tweets = Tweet.all
-      p "Waldo was here"
     else
       @tweets = @user.tweets
-      p "else tweets = user.tweets"
-      p params
-      p @user
     end
   end
 
@@ -42,10 +39,9 @@ class TweetsController < ApplicationController
   # POST /tweets.json
   def create
     @tweet = @user.tweets.new(tweet_params)
-
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to [@user, @tweet], notice: 'Tweet was successfully created.' }
+        format.html { redirect_to [@tweet], notice: 'Tweet was successfully created.' }
       else
         format.html { render :new }
       end
@@ -82,6 +78,6 @@ class TweetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:message, :user_id)
+      params.require(:tweet).permit(:body, :user_id)
     end
 end
