@@ -1,0 +1,6 @@
+<h1>Editing Tweet</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', [@tweet.user, @tweet] %> |
+<%= link_to 'Back', user_tweets_path(@tweet.user) %>
