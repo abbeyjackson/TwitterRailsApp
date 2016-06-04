@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'spec_helper'
 
-describe 'TweetsController' do
+describe TweetsController do
   let(:tweet) { tweets(:testTweet) }
   let(:user) { users(:testUser) }
 
@@ -52,12 +52,12 @@ describe 'TweetsController' do
     end
   end
 
-describe 'DELETE destroy' do
-  it "deletes a tweet" do
-    delete :destroy, user_id: user.id, id: tweet.id
-    expect(response.status).to eq 302
-    expect(Tweet.exists?(body: 'Message Body')).to be false
+  describe 'DELETE destroy' do
+    it "deletes a tweet" do
+      delete :destroy, user_id: user.id, id: tweet.id
+      expect(response.status).to eq 302
+      expect(Tweet.exists?(body: 'Message Body')).to be false
+    end
   end
-end
 
 end
