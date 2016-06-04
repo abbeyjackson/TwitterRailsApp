@@ -41,7 +41,7 @@ class TweetsController < ApplicationController
     @tweet = @user.tweets.new(tweet_params)
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to [@tweet], notice: 'Tweet was successfully created.' }
+        format.html { redirect_to [@user, @tweet], notice: 'Tweet was successfully created.' }
       else
         format.html { render :new }
       end
@@ -65,7 +65,7 @@ class TweetsController < ApplicationController
   def destroy
     @tweet.destroy
     respond_to do |format|
-      format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
+      format.html { redirect_to [@user, @tweet], notice: 'Tweet was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -78,6 +78,6 @@ class TweetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:body, :user_id)
+      params.require(:tweet).permit(:title, :body, :user_id)
     end
 end
