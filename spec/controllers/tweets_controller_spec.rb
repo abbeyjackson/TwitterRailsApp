@@ -34,12 +34,12 @@ describe TweetsController do
   end
 
   describe 'POST create' do
-    it 'creates new tweet' do
+    it 'creates a new tweet' do
       post :create, user_id: user.id, tweet: { title: 'New', body:'New Body' }
       tweet = Tweet.last
 
       expect(response.status).to eq 302
-      expect(response).to redirect_to user_tweet_path(user, tweet)
+      expect(response).to redirect_to user_tweets_path(user)
       expect(Tweet.exists?(body: 'New Body')).to be true
     end
   end
@@ -53,7 +53,7 @@ describe TweetsController do
   end
 
   describe 'DELETE destroy' do
-    it "deletes a tweet" do
+    it 'deletes a tweet' do
       delete :destroy, user_id: user.id, id: tweet.id
       expect(response.status).to eq 302
       expect(Tweet.exists?(body: 'Message Body')).to be false
