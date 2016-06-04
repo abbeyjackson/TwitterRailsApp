@@ -3,5 +3,4 @@ class Tweet < ActiveRecord::Base
   validates :user, :body, :title, presence: true
   validates :body, length: { maximum: 140 }
   validates :title, length: { maximum: 40 }
-
 end

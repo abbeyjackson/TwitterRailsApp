@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'Edit Tweet' do
 
   it 'updates a tweet when edited' do
-    visit '/users/1/tweets'
-    expect(page).to have_content('Listing Tweets')
+    visit '/users/1/tweets/1'
+    expect(page).to have_content('Destroy')
     click_link 'Edit'
     expect(page).to have_content('Editing Tweet')
     fill_in 'Title', with: 'New Tweet Title'
