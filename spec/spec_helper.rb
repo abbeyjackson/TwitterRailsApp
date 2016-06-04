@@ -37,4 +37,13 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.use_transactional_fixtures = true
+  config.infer_spec_type_from_file_location!
+  config.filter_rails_from_backtrace!
+
 end
+
+
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+# The different available types are documented in the features, such as in
+# https://relishapp.com/rspec/rspec-rails/docs
