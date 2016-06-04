@@ -1,6 +1,6 @@
-require 'rails_helper'
+require 'spec_helper'
 
-describe 'TweetsController' do
+describe TweetsController do
   let(:tweet) { tweets(:testTweet) }
   let(:user) { users(:testUser) }
 
