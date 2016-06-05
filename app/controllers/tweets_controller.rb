@@ -2,25 +2,20 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_tweet, only: [:edit, :update, :destroy]
   before_filter :get_user
+  before_action :authenticate_user_owns_tweet, only: [:edit, :update, :destroy]
 
   respond_to :html
 
   def get_user
-    p params
-    p :user_id
-    if user_signed_in?
-    @user = current_user
+    if params[:user_id]
+    @user = User.find(params[:user_id])
     end
   end
 
   # GET /tweets
   # GET /tweets.json
   def index
-    if user_signed_in?
-      @tweets = @user.tweets
-    else
-      @tweets = Tweet.all
-    end
+    @tweets = Tweet.all
   end
 
   # GET /tweets/1
@@ -68,7 +63,7 @@ class TweetsController < ApplicationController
   def destroy
     @tweet.destroy
     respond_to do |format|
-      format.html { redirect_to [@user, @tweet], notice: 'Tweet was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Tweet was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -82,5 +77,14 @@ class TweetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
       params.require(:tweet).permit(:title, :body, :user_id)
+    end
+
+    # Check that the user owns the tweet before allowing actions on it
+    def authenticate_user_owns_tweet
+      if current_user.id != @tweet.user_id
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: "Sorry you can not take action on other user's tweets" }
+        end
+      end
     end
 end
