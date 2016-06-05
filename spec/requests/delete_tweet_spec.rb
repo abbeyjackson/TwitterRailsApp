@@ -12,7 +12,7 @@ describe 'Delete Tweet' do
     visit '/users/1/tweets/1'
     expect(page).to have_content('Destroy')
     click_link 'Destroy'
-    expect(page).to have_content('JB's Twitter')
+    expect(page).to have_content("JB's Twitter")
     expect(page).to have_content('Tweet was successfully destroyed.')
   end
 

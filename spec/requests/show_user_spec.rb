@@ -14,6 +14,6 @@ describe 'Show User' do
     expect(page).to have_content('Edit')
     click_link 'All Tweets'
     expect(page).to have_no_content('Edit')
-    expect(page).to have_content('JB's Twitter')
+    expect(page).to have_content("JB's Twitter")
   end
 end
