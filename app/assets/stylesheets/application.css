@@ -14,8 +14,12 @@
  *= require_self
  */
 
-a:visited {
+a:visited, a:link {
   color: #db04b7
+}
+
+a:hover {
+    color: #0bb7a9;
 }
 
 h1, th {
