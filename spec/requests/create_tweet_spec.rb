@@ -14,7 +14,7 @@ describe 'Creating Tweet' do
     expect(page).to have_content('Listing Tweets')
   end
 
-  it 'returns to the user tweets list on cancel' do
+  it 'returns to the tweets list on cancel' do
     visit '/users/1/tweets'
     expect(page).to have_content('Listing Tweets')
     click_link 'New Tweet'

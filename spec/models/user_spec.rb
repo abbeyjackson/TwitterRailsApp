@@ -21,4 +21,10 @@ RSpec.describe User, type: :model do
     user = User.new(email: "email@test.com", password: "password")
     expect(user).to be_valid
   end
+
+  it 'should validate presence of email and password' do
+          should validate_presence_of(:email)
+          should validate_presence_of(:password)
+  end
+
 end
