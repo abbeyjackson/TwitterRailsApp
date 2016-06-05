@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe 'Creating Tweet' do
+  let(:tweet) { tweets(:testTweet) }
+  let(:user) { users(:testUser) }
 
-  it 'redirects to the user tweets list on success' do
-    visit '/users/1/tweets'
+  before(:each) do
+    login_as user
+    visit root_path
     expect(page).to have_content('Listing Tweets')
     click_link 'New Tweet'
     expect(page).to have_content('Cancel')
+  end
+
+  it 'redirects to the user tweets list on success' do
     fill_in 'Title', with: 'Tweet Title'
     fill_in 'Body', with: 'Tweet Body'
     click_button 'Create Tweet'
@@ -15,10 +21,6 @@ describe 'Creating Tweet' do
   end
 
   it 'returns to the tweets list on cancel' do
-    visit '/users/1/tweets'
-    expect(page).to have_content('Listing Tweets')
-    click_link 'New Tweet'
-    expect(page).to have_content('Cancel')
     fill_in 'Title', with: 'Tweet Title'
     fill_in 'Body', with: 'Tweet Body'
     click_link 'Cancel'
@@ -27,10 +29,6 @@ describe 'Creating Tweet' do
   end
 
   it 'gives the user an error on invalid submission' do
-    visit '/users/1/tweets'
-    expect(page).to have_content('Listing Tweets')
-    click_link 'New Tweet'
-    expect(page).to have_content('Cancel')
     fill_in 'Title', with: 'Tweet Title'
     click_button 'Create Tweet'
     expect(page).to have_no_content('Tweet was successfully created')

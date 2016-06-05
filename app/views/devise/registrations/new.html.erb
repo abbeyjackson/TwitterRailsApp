@@ -10,9 +10,7 @@
 
   <div class="field">
     <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> - <%= @maximum_password_length %> characters)</em>
-    <% end %><br />
+    <em>(<%= @minimum_password_length %> - <%= @maximum_password_length %> characters)</em><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
@@ -22,7 +20,8 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Create Account" %>
+    <%= f.submit "Create Account" %> |
+    <%= link_to "Back", root_path %>
   </div>
 <% end %>
 

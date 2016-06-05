@@ -4,11 +4,16 @@ describe TweetsController do
   let(:tweet) { tweets(:testTweet) }
   let(:user) { users(:testUser) }
 
+  before(:each) do
+   sign_in user
+  end
+
+
   describe 'GET index' do
     it 'retrieves all tweets' do
       get :index
       expect(response.status).to eq 200
-      expect(assigns(:tweets).all.count).to eq 1
+      expect(assigns(:tweets).all.count).to eq 2
     end
   end
 

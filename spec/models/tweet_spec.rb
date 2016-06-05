@@ -27,10 +27,4 @@ RSpec.describe Tweet, type: :model do
     expect(tweet).to be_valid
   end
 
-  it 'should validate presence of title, body, and user_id' do
-          should validate_presence_of(:title)
-          should validate_presence_of(:body)
-          should validate_presence_of(:user_id)
-  end
-
 end

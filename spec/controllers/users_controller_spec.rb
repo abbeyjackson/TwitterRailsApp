@@ -1,13 +1,18 @@
 require 'spec_helper'
 
 describe UsersController do
+  let(:tweet) { tweets(:testTweet) }
   let(:user) { users(:testUser) }
+
+  before(:each) do
+   sign_in user
+  end
 
   describe 'GET index' do
     it 'retrieves all users' do
       get :index
       expect(response.status).to eq 200
-      expect(assigns(:users).all.count).to eq 1
+      expect(assigns(:users).all.count).to eq 2
     end
   end
 
@@ -15,25 +20,6 @@ describe UsersController do
     it 'shows an individual user' do
       get :show, id: user.id
       expect(response.status).to eq 200
-    end
-  end
-
-  describe 'POST create' do
-    it 'creates a new user' do
-      post :create, user: { email: 'test@gmail.com', password: 'password' }
-      user = User.last
-
-      expect(response.status).to eq 302
-      expect(response).to redirect_to user_path(user)
-      expect(User.exists?(email: 'test@gmail.com', password: 'password')).to be true
-    end
-  end
-
-  describe 'PUT update' do
-    it 'updates a user after editing' do
-      put :update, id: user.id, user: { email: 'newtest@gmail.com', password: 'newpassword' }
-      expect(response.status).to eq 302
-      expect(User.exists?(email: 'newtest@gmail.com', password: 'newpassword')).to be true
     end
   end
 
