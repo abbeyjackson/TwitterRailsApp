@@ -13,6 +13,6 @@ describe 'Show Tweet' do
     expect(page).to have_content('Destroy')
     click_link 'All Tweets'
     expect(page).to have_no_content('Edit')
-    expect(page).to have_content('Listing Tweets')
+    expect(page).to have_content('JB's Twitter')
   end
 end

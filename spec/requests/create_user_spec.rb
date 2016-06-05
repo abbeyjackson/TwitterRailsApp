@@ -4,7 +4,7 @@ describe 'Creating User' do
 
   before(:each) do
     visit root_path
-    expect(page).to have_content('Listing Tweets')
+    expect(page).to have_content('JB's Twitter')
     click_link 'Create Account'
     expect(page).to have_content('Back')
   end
@@ -15,7 +15,7 @@ describe 'Creating User' do
     fill_in 'Password confirmation', with: 'password'
     click_button 'Create Account'
     # expect(page).to have_content('Welcome! You have signed up successfully.')
-    expect(page).to have_content('Listing Tweets')
+    expect(page).to have_content('JB's Twitter')
   end
 
   it 'returns to the tweet list on back' do
@@ -24,7 +24,7 @@ describe 'Creating User' do
     fill_in 'Password confirmation', with: 'password'
     click_link 'Back'
     expect(page).to have_no_content('Welcome! You have signed up successfully.')
-    expect(page).to have_content('Listing Tweets')
+    expect(page).to have_content('JB's Twitter')
   end
 
   it 'gives the user an error on invalid submission' do

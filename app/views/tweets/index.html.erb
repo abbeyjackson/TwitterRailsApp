@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Tweets</h1>
+<h1>JB's Twitter</h1>
 
 <table>
   <thead>
@@ -19,7 +19,7 @@
     <% end %>
     <% @tweets.each do |tweet| %>
       <tr>
-        <td><%= tweet.created_at %></td>
+        <td><%= tweet.created_at.strftime("%d %b %Y, %H:%M") %></td>
         <td><%= link_to tweet.title, [tweet.user, tweet] %></td>
         <td><%= tweet.body %></td>
         <td><% if @user %>
