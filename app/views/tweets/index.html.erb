@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>JB's Twitter</h1>
-
+<% if @tweets.size == 0 %>
+  <p> There are no tweets yet. </p>
+<% else %>
 <table>
   <thead>
     <tr>
@@ -13,25 +15,26 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% unless current_page?(root_path) %>
-      <% @tweets = @user.tweets %>
-    <% end %>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.created_at.strftime("%d %b %Y, %H:%M") %></td>
-        <td><%= link_to tweet.title, [tweet.user, tweet] %></td>
-        <td><%= tweet.body %></td>
-        <td><% if @user %>
-            <%= tweet.user.email %>
-          <% else %>
-            <%= link_to tweet.user.email, user_tweets_path(tweet.user) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <tbody>
+      <% unless current_page?(root_path) %>
+        <% @tweets = @user.tweets %>
+      <% end %>
+      <% @tweets.each do |tweet| %>
+        <tr>
+          <td><%= tweet.created_at.strftime("%d %b %Y, %H:%M") %></td>
+          <td><%= link_to tweet.title, [tweet.user, tweet] %></td>
+          <td><%= tweet.body %></td>
+          <td><% if @user %>
+              <%= tweet.user.email %>
+            <% else %>
+              <%= link_to tweet.user.email, user_tweets_path(tweet.user) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <br>
 <% if user_signed_in? %>
