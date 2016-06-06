@@ -1,4 +1,4 @@
-testUser:
+test_user:
   id: 1
   email: 'user@test.com'
   password: 'password'

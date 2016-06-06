@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Tweet, type: :model do
-
   it 'needs a user, title, and a body' do
     tweet = Tweet.new
     expect(tweet).to be_invalid
@@ -18,12 +17,12 @@ RSpec.describe Tweet, type: :model do
   end
 
   it 'is invalid with only a user' do
-    tweet = Tweet.new(user_id: users(:testUser).id)
+    tweet = Tweet.new(user_id: users(:test_user).id)
     expect(tweet).to be_invalid
   end
 
   it 'is valid with a user and a body' do
-    tweet = Tweet.new(title: "Message Title", body: "Message Body", user_id: users(:testUser).id)
+    tweet = Tweet.new(title: "Message Title", body: "Message Body", user_id: users(:test_user).id)
     expect(tweet).to be_valid
   end
 

@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe TweetsController do
-  let(:tweet) { tweets(:testTweet) }
-  let(:user) { users(:testUser) }
+  let(:tweet) { tweets(:test_tweet) }
+  let(:user) { users(:test_user) }
+  let(:long_body_text) { '111111111 22222222 333333333 444444444 555555555 666666666 777777777 888888888 999999999 000000000 111111111 222222222 333333333 444444444 5555' }
+  let(:long_title_text) { '111111111 22222222 333333333 444444444 555'}
 
   before(:each) do
    sign_in user
@@ -40,12 +42,34 @@ describe TweetsController do
 
   describe 'POST create' do
     it 'creates a new tweet' do
-      post :create, user_id: user.id, tweet: { title: 'New', body:'New Body' }
-      tweet = Tweet.last
-
+      post :create, user_id: user.id, tweet: { title: 'New Title', body: 'New Body' }
       expect(response.status).to eq 302
       expect(response).to redirect_to user_tweets_path(user)
       expect(Tweet.exists?(body: 'New Body')).to be true
+    end
+
+    it 'does not create a tweet if body is blank' do
+      post :create, user_id: user.id, tweet: { title: 'Has Blank Body', body: '' }
+      expect(response.status).to eq 200
+      expect(Tweet.exists?(title: 'Has Blank Body')).to be false
+    end
+
+    it 'does not create a tweet if title is blank' do
+      post :create, user_id: user.id, tweet: { title: '', body: 'Has Blank Title' }
+      expect(response.status).to eq 200
+      expect(Tweet.exists?(body: 'Has Blank Title')).to be false
+    end
+
+    it 'does not create a tweet if body is more than 140 characters' do
+      post :create, user_id: user.id, tweet: { title: 'New', body: long_body_text }
+      expect(response.status).to eq 200
+      expect(Tweet.exists?(body: 'long_body_text')).to be false
+    end
+
+    it 'does not create a tweet if title is more than 40 characters' do
+      post :create, user_id: user.id, tweet: { title: long_title_text }
+      expect(response.status).to eq 200
+      expect(Tweet.exists?(title: 'long_title_text')).to be false
     end
   end
 
