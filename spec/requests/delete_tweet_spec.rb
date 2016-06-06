@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'Delete Tweet' do
-  let(:tweet) { tweets(:testTweet) }
-  let(:user) { users(:testUser) }
+  let(:tweet) { tweets(:test_tweet) }
+  let(:user) { users(:test_user) }
 
   before(:each) do
     login_as user

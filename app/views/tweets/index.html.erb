@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>JB's Twitter</h1>
-<% if @tweets.size == 0 %>
+<% if @tweets.empty? %>
   <p> There are no tweets yet. </p>
 <% else %>
 <table>
@@ -16,9 +16,6 @@
   </thead>
 
     <tbody>
-      <% unless current_page?(root_path) %>
-        <% @tweets = @user.tweets %>
-      <% end %>
       <% @tweets.each do |tweet| %>
         <tr>
           <td><%= tweet.created_at.strftime("%d %b %Y, %H:%M") %></td>

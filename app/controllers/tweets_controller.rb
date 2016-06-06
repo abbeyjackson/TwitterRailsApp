@@ -1,21 +1,19 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
-  before_action :set_tweet, only: [:edit, :update, :destroy]
-  before_filter :get_user
+  before_action :find_tweet, only: [:edit, :update, :destroy]
+  before_filter :find_user
   before_action :authenticate_user_owns_tweet, only: [:edit, :update, :destroy]
 
   respond_to :html
 
-  def get_user
-    if params[:user_id]
-    @user = User.find(params[:user_id])
-    end
-  end
-
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    if params[:user_id]
+      @tweets = @user.tweets
+    else
+      @tweets = Tweet.all
+    end
   end
 
   # GET /tweets/1
@@ -36,7 +34,7 @@ class TweetsController < ApplicationController
   # POST /tweets
   # POST /tweets.json
   def create
-    @tweet = @user.tweets.new(tweet_params)
+    @tweet = current_user.tweets.new(tweet_params)
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to user_tweets_path(@user), notice: 'Tweet was successfully created.' }
@@ -69,14 +67,21 @@ class TweetsController < ApplicationController
   end
 
   private
+    # Find user for tweet
+    def find_user
+      if params[:user_id]
+        @user = User.find(params[:user_id])
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_tweet
+    def find_tweet
       @tweet = Tweet.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:title, :body, :user_id)
+      params.require(:tweet).permit(:title, :body)
     end
 
     # Check that the user owns the tweet before allowing actions on it
