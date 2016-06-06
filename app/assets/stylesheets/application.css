@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+a:visited, a:link {
+  color: #db04b7
+}
+
+a:hover {
+    color: #0bb7a9;
+}
+
+h1, th {
+ color: #0bb7a9;
+}
+
+#notice {
+  color: #db04b7;
+}

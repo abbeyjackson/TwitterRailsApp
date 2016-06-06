@@ -1,0 +1,11 @@
+testTweet:
+  id: 1
+  user_id: 1
+  body: "Message Body"
+  title: "Message Title"
+
+secondaryTweet:
+  id: 2
+  user_id: 2
+  body: "2nd Message Body"
+  title: "2nd Message Title"
